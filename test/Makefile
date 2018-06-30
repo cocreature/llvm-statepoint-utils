@@ -4,7 +4,7 @@ OPT_LLC := -O3
 
 all: a.out
 
-a.out: ../dist/llvm-statepoint-tablegen.a fib.o driver.o shim.s
+a.out: driver.o fib.o shim.s ../dist/llvm-statepoint-tablegen.a
 	$(CC) $(OPT_CC) $^
 
 fib.o: fib.ll

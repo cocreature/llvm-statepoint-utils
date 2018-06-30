@@ -10,7 +10,7 @@
 #define __STDC_FORMAT_MACROS 1
 #include <inttypes.h>
 
-extern uint8_t _LLVM_StackMaps[];
+extern uint8_t __LLVM_StackMaps[];
 extern uint64_t heapSizeB;
 extern uint32_t* heapBase;
 extern uint32_t* heapPtr; // points at the first free spot in the heap
@@ -30,13 +30,13 @@ uint32_t* relocate_uint32star(uint32_t** slot, uint32_t* heapPtr) {
 
 
 void doGC(uint8_t* stackPtr) {
-    void* stackmap = (void*)&_LLVM_StackMaps;
+    void* stackmap = (void*)&__LLVM_StackMaps;
     
     if(!tableBuilt) {
         printf("stackPtr = 0x%" PRIX64 "\n", (uint64_t)stackPtr);
         
         // setup aux heap
-        printf("aux heap size = %llu bytes\n", heapSizeB);
+        printf("aux heap size = %lu bytes\n", heapSizeB);
         auxHeap = (uint32_t*) malloc(heapSizeB);
         memset(auxHeap, 0x7F, heapSizeB); 
         
